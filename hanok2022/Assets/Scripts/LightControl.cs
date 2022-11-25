@@ -8,8 +8,8 @@ public class LightControl : MonoBehaviour
     [SerializeField] float horizontalSpeed = 10f;
     [SerializeField] float verticalSpeed = 10f;
 
-    [SerializeField] float zoomMin = -3f;
-    [SerializeField] float zoomMax = 0f;
+    [SerializeField] float zoomMin = -1f;
+    [SerializeField] float zoomMax = 3f;
 
     [SerializeField] float lookSpeed = 100f;
 
@@ -21,6 +21,7 @@ public class LightControl : MonoBehaviour
 
     void FixedUpdate()
     {
+        GetEDirection();
         //Move();
         Orbit();
         LookAtTarget();
@@ -35,7 +36,7 @@ public class LightControl : MonoBehaviour
             Vector2 direction = new Vector2(spriteTransform.position.x - target.position.x, spriteTransform.position.y - target.position.y);
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion angleAxis = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
+            Quaternion angleAxis = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
             Quaternion rotation = Quaternion.Slerp(spriteTransform.rotation, angleAxis, lookSpeed * Time.deltaTime);
             spriteTransform.rotation = rotation;
         }
@@ -58,11 +59,11 @@ public class LightControl : MonoBehaviour
             if (v != 0)
             {
 
-                float dist = spriteTransform.localPosition.x + (v * verticalSpeed * Time.deltaTime);
+                float dist = spriteTransform.localPosition.y - (v * verticalSpeed * Time.deltaTime);
                 float clampedDist = Mathf.Clamp(dist, zoomMin, zoomMax);
 
                 Vector3 tempVector = spriteTransform.localPosition;
-                tempVector.x = clampedDist;
+                tempVector.y = clampedDist;
                 spriteTransform.localPosition = tempVector;
             }
         }
@@ -83,4 +84,10 @@ public class LightControl : MonoBehaviour
 
     //    transform.Translate(moveDir * speed * Time.deltaTime);
     //}
+
+    public void GetEDirection()
+    {
+        float angle = transform.rotation.eulerAngles.z;
+        Debug.Log("angle: " + angle);
+    }
 }

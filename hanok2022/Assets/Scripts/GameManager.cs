@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject flashLight = null;
 
     SpriteRenderer targetSprite = null; // wall에 표시될 sprite
+
+    SpriteRenderer lightSprite = null;
     Transform lightTransform = null;
 
     public Transform TargetTransform { get => targetSprite.transform; }
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
 
         flashLight ??= GameObject.Find("FlashLight");
         lightTransform ??= flashLight.transform;
+        lightSprite ??= lightTransform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     public void GameStart()
@@ -78,10 +81,9 @@ public class GameManager : MonoBehaviour
     public void SetShadowData()
     {
         // todo : 플레이어 위치에 따라 업데이트
-        Vector2 lightPos = lightTransform.position;
-        float val = Vector2.SqrMagnitude(lightTransform.position - targetSprite.transform.position);
+        float val = Vector2.SqrMagnitude(lightSprite.transform.position - target.transform.position);
 
-        Debug.Log("Capture distance : " + val);
+        Debug.Log("Capture distance^2 : " + val);
     }
 
     public ShadowData GetShadowData()
