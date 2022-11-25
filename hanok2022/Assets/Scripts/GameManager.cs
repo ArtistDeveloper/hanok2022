@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     #region Settings
     [Header("ÀÏÄ¡À²")]
-    [SerializeField] public float ConcordanceRate = 0.9f;
+    [SerializeField] public float ConcordanceRate = 0.8f;
 
     #endregion Settings
 
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         string curTime = string.Format("{0:0.00}", Time.realtimeSinceStartup - startTime);
         //Debug.Log($"Time : {curTime}");
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             SetShadowData();
         }
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         Vector2 lightPos = lightTransform.position;
         float val = Vector2.SqrMagnitude(lightTransform.position - targetSprite.transform.position);
 
-        Debug.Log("distance : " + val);
+        Debug.Log("Capture distance : " + val);
     }
 
     public ShadowData GetShadowData()
@@ -99,6 +99,11 @@ public class ShadowData
     public override bool Equals(object obj)
     {
         return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 }
 

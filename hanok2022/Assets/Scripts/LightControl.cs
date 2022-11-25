@@ -5,7 +5,12 @@ using UnityEngine;
 public class LightControl : MonoBehaviour
 {
     #region Settings
-    [SerializeField] float speed = 10f;
+    [SerializeField] float horizontalSpeed = 10f;
+    [SerializeField] float verticalSpeed = 10f;
+
+    [SerializeField] float zoomMin = -3f;
+    [SerializeField] float zoomMax = 0f;
+
     [SerializeField] float lookSpeed = 100f;
 
     #endregion Settings
@@ -16,7 +21,8 @@ public class LightControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        //Move();
+        Orbit();
         LookAtTarget();
     }
 
@@ -35,19 +41,46 @@ public class LightControl : MonoBehaviour
         }
     }
 
-    void Move()
+    void Orbit()
     {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        target ??= GameManager.Instance.TargetTransform;
 
-        Vector2 moveDir = new Vector2(x, y);
-        moveDir.Normalize(); // 최대 값을 1로
-
-        if (moveDir == Vector2.zero)
+        if (target != null)
         {
-            return;
-        }
+            float h = Input.GetAxis("Horizontal");
+            if (h != 0)
+            {
+                Vector3 axis = h < 0 ? Vector3.forward : Vector3.back;
+                transform.RotateAround(target.position, axis, horizontalSpeed * Time.deltaTime);
+            }
 
-        transform.Translate(moveDir * speed * Time.deltaTime);
+            float v = Input.GetAxis("Vertical");
+            if (v != 0)
+            {
+
+                float dist = spriteTransform.localPosition.x + (v * verticalSpeed * Time.deltaTime);
+                float clampedDist = Mathf.Clamp(dist, zoomMin, zoomMax);
+
+                Vector3 tempVector = spriteTransform.localPosition;
+                tempVector.x = clampedDist;
+                spriteTransform.localPosition = tempVector;
+            }
+        }
     }
+
+    //void Move()
+    //{
+    //    float x = Input.GetAxis("Horizontal");
+    //    float y = Input.GetAxis("Vertical");
+
+    //    Vector2 moveDir = new Vector2(x, y);
+    //    moveDir.Normalize(); // 최대 값을 1로
+
+    //    if (moveDir == Vector2.zero)
+    //    {
+    //        return;
+    //    }
+
+    //    transform.Translate(moveDir * speed * Time.deltaTime);
+    //}
 }

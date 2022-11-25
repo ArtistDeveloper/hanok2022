@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4267d7c35d368e94caf4a71ec1c9fac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConcordanceRate: 0.9
+  ConcordanceRate: 0.8
   target: {fileID: 1931050178}
   flashLight: {fileID: 1138637531}
 --- !u!4 &1098962619
@@ -593,7 +593,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bc6854e11cbf409f0f0e4866bba1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  horizontalSpeed: 200
+  verticalSpeed: 5
+  zoomMin: -3
+  zoomMax: 1
   lookSpeed: 10
   spriteTransform: {fileID: 1421006242}
 --- !u!1 &1421006241
