@@ -144,7 +144,7 @@ AudioLowPassFilter:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.045020465
+      value: 0.017735334
       inSlope: 0
       outSlope: 0
       tangentMode: 0
