@@ -16,6 +16,7 @@ public class LightControl : MonoBehaviour
     #endregion Settings
 
     [SerializeField] Transform spriteTransform;
+    [SerializeField] Transform lightTransform;
 
     Transform target;
 
@@ -40,8 +41,34 @@ public class LightControl : MonoBehaviour
             Quaternion angleAxis = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
             Quaternion rotation = Quaternion.Slerp(spriteTransform.rotation, angleAxis, lookSpeed * Time.deltaTime);
             spriteTransform.rotation = rotation;
+
+            StrechBetween(lightTransform.position, target.position);
         }
     }
+
+    void StrechBetween(Vector2 point1, Vector2 point2)
+    {
+        SpriteRenderer render = lightTransform.GetComponent<SpriteRenderer>();
+        float spriteSize = render.sprite.rect.height / render.sprite.pixelsPerUnit;
+
+        Vector3 scale = lightTransform.localScale;
+        scale.y = Vector3.Distance(point1, point2) / spriteSize;
+        lightTransform.localScale = scale;
+    }
+
+    public void Strech(GameObject _sprite, Vector3 _initialPosition, Vector3 _finalPosition, bool _mirrorZ)
+    {
+        Vector3 centerPos = (_initialPosition + _finalPosition) / 2f;
+        _sprite.transform.position = centerPos;
+        Vector3 direction = _finalPosition - _initialPosition;
+        direction = Vector3.Normalize(direction);
+        _sprite.transform.right = direction;
+        if (_mirrorZ) _sprite.transform.right *= -1f;
+        Vector3 scale = new Vector3(1, 1, 1);
+        scale.x = Vector3.Distance(_initialPosition, _finalPosition);
+        _sprite.transform.localScale = scale;
+    }
+
 
     void Orbit()
     {

@@ -220,3 +220,4 @@ MonoBehaviour:
   zoomMax: 3
   lookSpeed: 10
   spriteTransform: {fileID: 1351713234417377541}
+  lightTransform: {fileID: 1351713232869876591}

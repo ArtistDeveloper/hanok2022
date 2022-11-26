@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4bb74e3e44bbe4f9a6143c65137f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneChangeDelayTime: 1
 --- !u!4 &155609509
 Transform:
   m_ObjectHideFlags: 0
