@@ -33,7 +33,11 @@ public class GameManager : MonoBehaviour
     float _playTime;
     public float PlayTime { get => _playTime; }
 
-    
+    readonly float SLOW_TIME_SCALE = 0.2f;
+    readonly float SLOW_TIME = 1f;
+
+    Coroutine slowMotionRoutine = null;
+
     #region Records
     float startTime = 0f;
 
@@ -89,6 +93,25 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SoundManager.Instance.ChangeBGM(SoundManager.ESoundBGM.None);
+    }
+
+    public void PlaySlowMotion()
+    {
+        if (slowMotionRoutine != null)
+        {
+            StopCoroutine(slowMotionRoutine);
+        }
+
+        slowMotionRoutine = StartCoroutine(SlowMotionRoutine());
+    }
+
+    IEnumerator SlowMotionRoutine()
+    {
+        Time.timeScale = SLOW_TIME_SCALE;
+
+        yield return MyUtil.WaitForSeconds(SLOW_TIME);
+
+        Time.timeScale = 1f;
     }
 
     public void ChangeTarget()
