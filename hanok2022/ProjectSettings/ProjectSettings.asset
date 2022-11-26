@@ -156,7 +156,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.EyeDog.hanok2022
-    Standalone: com.EyeDog.hanok2022
+    Standalone: com.hanok.DuneoFULLGadong
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -823,7 +823,7 @@ PlayerSettings:
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
   enableRoslynAnalyzers: 1
-  selectedPlatform: 0
+  selectedPlatform: 1
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
