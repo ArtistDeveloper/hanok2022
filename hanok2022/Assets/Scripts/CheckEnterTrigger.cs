@@ -10,10 +10,10 @@ public class CheckEnterTrigger : MonoBehaviour
         {
             var wall = collision.GetComponent<Wall>();
 
-            Debug.LogError("enter wall");
             Destroy(wall.gameObject);
 
             // todo : check wall data
+            Debug.LogError($"current dir: {GameManager.Instance.CurrentShadow.Direct}");
         }
     }
 }
