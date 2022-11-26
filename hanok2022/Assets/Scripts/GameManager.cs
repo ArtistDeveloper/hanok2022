@@ -23,7 +23,12 @@ public class GameManager : MonoBehaviour
 
     public Transform TargetTransform { get => targetSprite.transform; }
 
-    ShadowData shadowData;
+    ShadowData shadowData = new ShadowData();
+    public ShadowData CurrentShadow
+    {
+        get => shadowData;
+        private set => shadowData = value;
+    }
 
     float _playTime;
     public float PlayTime { get => _playTime; }
@@ -54,7 +59,7 @@ public class GameManager : MonoBehaviour
         string curTime = string.Format("{0:0.00}", _playTime);
         //Debug.Log($"Time : {curTime}");
 
-        if (Input.GetKeyDown(KeyCode.C))
+        //if (Input.GetKeyDown(KeyCode.C))
         {
             SetShadowData();
         }
@@ -86,17 +91,20 @@ public class GameManager : MonoBehaviour
     {
         // todo : 플레이어 위치에 따라 업데이트
         // 바라보는 방향과 거리에 따라 
-        shadowData.Direct = flashLight.GetEDirection();
+        CurrentShadow.Direct = flashLight.GetEDirection();
 
         float sqrDist = Vector2.SqrMagnitude(lightSprite.transform.position - target.transform.position);
         sqrDist = Vector2.Distance(lightSprite.transform.position, target.transform.position);
         float val1 = 1 / sqrDist; // 거리가 멀면 size 커진다
 
-        Debug.LogError("scale : " + val1);
 
-        shadowData.Scale = sqrDist; // x ~ 0.6097566
-
-        Debug.Log("Capture distance^2 : " + sqrDist);
+        CurrentShadow.Scale = sqrDist; // x ~ 0.6097566
+     
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Debug.LogError("scale : " + val1);
+            Debug.Log("Capture distance^2 : " + sqrDist);
+        }
     }
 
     public ShadowData GetShadowData()
