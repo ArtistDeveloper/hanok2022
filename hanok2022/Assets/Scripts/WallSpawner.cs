@@ -191,6 +191,7 @@ public class WallSpawner : MonoBehaviour
     {
         while (true)
         {
+            Debug.LogError("¿Ö±×·¡¤Ä!!!");
             EWallDirection eWallDirection = (EWallDirection)Random.Range(CREATABLE_MIN_WALL, CREATABLE_MAX_WALL);
             Vector3 wallPosition = DecideWallPosition(eWallDirection);
             Vector3 wallRotation = DecideWallRotation(eWallDirection);

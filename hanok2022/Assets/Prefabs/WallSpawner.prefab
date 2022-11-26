@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d426167f44c5844bacee23468c79bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wallSpped: 1
+  _wallArrivalSpeed: 1.5
   _wallPrefab: {fileID: 4634744404267661180, guid: cd1ba5ba7e7a16947bbba0526b6e5cf7, type: 3}
   wallCreatedPositions:
   - {fileID: 4516027510057118991}
@@ -246,6 +246,7 @@ MonoBehaviour:
   - {fileID: 4516027508467775707}
   - {fileID: 4516027508469164909}
   - {fileID: 4516027510060508783}
+  _wallCreationTarget: {fileID: 0}
 --- !u!1 &4516027510372038346
 GameObject:
   m_ObjectHideFlags: 0

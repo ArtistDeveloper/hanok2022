@@ -969,14 +969,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4516027510310651740, guid: e1d2fea612b912645adc446e557c306b, type: 3}
-      propertyPath: _wallSpped
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516027510310651740, guid: e1d2fea612b912645adc446e557c306b, type: 3}
-      propertyPath: _wallArrivalSpeed
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4516027510310651740, guid: e1d2fea612b912645adc446e557c306b, type: 3}
       propertyPath: _wallCreationTarget
       value: 
       objectReference: {fileID: 347047879}

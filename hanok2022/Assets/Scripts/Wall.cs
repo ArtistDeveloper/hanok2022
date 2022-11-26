@@ -9,6 +9,7 @@ public class Wall : MonoBehaviour
 {
     [SerializeField] Transform _wallShadowTransform;
     [SerializeField] Transform _humanShadowArrivalTransform;
+    [SerializeField] 
 
     Vector3 _ceter = Vector3.zero;
     ShadowData _shadowData;
@@ -17,6 +18,7 @@ public class Wall : MonoBehaviour
 
     public ShadowData ShadowData
     {
+        get => _shadowData;
         set
         {
             _shadowData = value;
@@ -79,7 +81,11 @@ public class Wall : MonoBehaviour
 
     public void ActivateShadow()
     {
+        //GameManager.Instance.CurrentShadow
+        if (ShadowData.Direct == GameManager.Instance.CurrentShadow.Direct)
+        {
 
+        }
     }
 
     public void DeactivateShadow()
