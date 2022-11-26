@@ -35,6 +35,11 @@ public class LobbyScene : MonoBehaviour
         //SceneManager.LoadScene("PlayScene");
     }
 
+    public void PlayButtonSound()
+    {
+        SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Button);
+    }
+
     public void PlayCredit()
     {
         SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Button);
@@ -53,15 +58,5 @@ public class LobbyScene : MonoBehaviour
     public void ReadTitle()
     {
         SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.DuneoFULLGadong);
-    }
-
-    public void ShowRanking()
-    {
-        SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Button);
-    }
-
-    public void Controls()
-    {
-        SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Button);
     }
 }
