@@ -27,7 +27,8 @@ public class SoundManager : MonoBehaviour
         Button,
         LightMove,
         WallBreak,
-        Demaged,
+        Damaged,
+        DuneoFULLGadong,
     }
 
     //string[] SoundNames = { "투핑거스 - 도전적인 미래", "Mario Jumping Sound", "Water Droplet Sound", "Pow 1", "Blast 6" };
@@ -124,7 +125,7 @@ public class SoundManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            ChangeSFX(ESoundFX.Demaged);
+            ChangeSFX(ESoundFX.Damaged);
         }
     }
 
