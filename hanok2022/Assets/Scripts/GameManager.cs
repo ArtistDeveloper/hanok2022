@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     #endregion Settings
 
     [SerializeField] GameObject target = null;
-    [SerializeField] GameObject flashLight = null;
+    [SerializeField] LightControl flashLight = null;
 
     SpriteRenderer targetSprite = null; // wall에 표시될 sprite
 
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         target ??= GameObject.Find("Target");
         targetSprite ??= target.GetComponent<SpriteRenderer>();
 
-        flashLight ??= GameObject.Find("FlashLight");
+        flashLight ??= GameObject.Find("FlashLight").GetComponent<LightControl>();
         lightTransform ??= flashLight.transform;
         lightSprite ??= lightTransform.GetChild(0).GetComponent<SpriteRenderer>();
     }
@@ -85,9 +85,18 @@ public class GameManager : MonoBehaviour
     public void SetShadowData()
     {
         // todo : 플레이어 위치에 따라 업데이트
-        float val = Vector2.SqrMagnitude(lightSprite.transform.position - target.transform.position);
+        // 바라보는 방향과 거리에 따라 
+        shadowData.Direct = flashLight.GetEDirection();
 
-        Debug.Log("Capture distance^2 : " + val);
+        float sqrDist = Vector2.SqrMagnitude(lightSprite.transform.position - target.transform.position);
+        sqrDist = Vector2.Distance(lightSprite.transform.position, target.transform.position);
+        float val1 = 1 / sqrDist; // 거리가 멀면 size 커진다
+
+        Debug.LogError("scale : " + val1);
+
+        shadowData.Scale = sqrDist; // x ~ 0.6097566
+
+        Debug.Log("Capture distance^2 : " + sqrDist);
     }
 
     public ShadowData GetShadowData()
@@ -99,28 +108,23 @@ public class GameManager : MonoBehaviour
 
 public class ShadowData
 {
-    public EDirection Direct;
-    public float Size = 1f;
+    public WallSpawner.EWallDirection Direct;
+    public float Scale = 1f;
 
     public override bool Equals(object obj)
     {
-        return base.Equals(obj);
+        ShadowData objData = obj as ShadowData;
+        if (objData == null)
+        {
+            return false;
+        }
+
+        return objData.Direct == this.Direct;
+        //return objData.Direct == this.Direct && objData.Scale == this.Scale;
     }
 
     public override int GetHashCode()
     {
         return base.GetHashCode();
     }
-}
-
-public enum EDirection
-{
-    Top,
-    TopRight,
-    Right,
-    BottomRight,
-    Bottom,
-    BottomLeft,
-    Left,
-    TopLeft,
 }

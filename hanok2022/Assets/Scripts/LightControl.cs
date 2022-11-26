@@ -21,7 +21,6 @@ public class LightControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        GetEDirection();
         //Move();
         Orbit();
         LookAtTarget();
@@ -85,9 +84,38 @@ public class LightControl : MonoBehaviour
     //    transform.Translate(moveDir * speed * Time.deltaTime);
     //}
 
-    public void GetEDirection()
+    public WallSpawner.EWallDirection GetEDirection()
     {
         float angle = transform.rotation.eulerAngles.z;
-        Debug.Log("angle: " + angle);
+        WallSpawner.EWallDirection result = WallSpawner.EWallDirection.Top;
+
+        if (30 < angle && angle < 90)
+        {
+            result = WallSpawner.EWallDirection.BottomRight;
+        }
+        else if (90 < angle && angle < 150)
+        {
+            result = WallSpawner.EWallDirection.TopRight;
+        }
+        else if (150 < angle && angle < 210)
+        {
+            result = WallSpawner.EWallDirection.Top;
+        }
+        else if (210 < angle && angle < 270)
+        {
+            result = WallSpawner.EWallDirection.TopLeft;
+        }
+        else if (270 < angle && angle < 330)
+        {
+            result = WallSpawner.EWallDirection.BottomLeft;
+        }
+        else // (0 < angle && angle < 30 || 330 < angle && angle < 360)
+        {
+            result = WallSpawner.EWallDirection.Bottom;
+        }
+
+        //Debug.Log($"angle: {angle}, dir: {result}");
+
+        return result;
     }
 }
