@@ -15,8 +15,9 @@ public class LightControl : MonoBehaviour
 
     #endregion Settings
 
-    [SerializeField] Transform spriteTransform;
+    [SerializeField] Transform bodyTransform;
     [SerializeField] Transform lightTransform;
+    [SerializeField] Transform circleLineTransform;
 
     Transform target;
 
@@ -35,12 +36,12 @@ public class LightControl : MonoBehaviour
 
         if (target != null)
         {
-            Vector2 direction = new Vector2(spriteTransform.position.x - target.position.x, spriteTransform.position.y - target.position.y);
+            Vector2 direction = new Vector2(bodyTransform.position.x - target.position.x, bodyTransform.position.y - target.position.y);
 
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion angleAxis = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
-            Quaternion rotation = Quaternion.Slerp(spriteTransform.rotation, angleAxis, lookSpeed * Time.deltaTime);
-            spriteTransform.rotation = rotation;
+            Quaternion rotation = Quaternion.Slerp(bodyTransform.rotation, angleAxis, lookSpeed * Time.deltaTime);
+            bodyTransform.rotation = rotation;
 
             StrechBetween(lightTransform.position, target.position);
         }
@@ -48,6 +49,7 @@ public class LightControl : MonoBehaviour
 
     void StrechBetween(Vector2 point1, Vector2 point2)
     {
+        // refer : https://answers.unity.com/questions/1235760/unity-streching-sprite-gameobject-to-fit-two-posit.html
         SpriteRenderer render = lightTransform.GetComponent<SpriteRenderer>();
         float spriteSize = render.sprite.rect.height / render.sprite.pixelsPerUnit;
 
@@ -55,20 +57,6 @@ public class LightControl : MonoBehaviour
         scale.y = Vector3.Distance(point1, point2) / spriteSize;
         lightTransform.localScale = scale;
     }
-
-    public void Strech(GameObject _sprite, Vector3 _initialPosition, Vector3 _finalPosition, bool _mirrorZ)
-    {
-        Vector3 centerPos = (_initialPosition + _finalPosition) / 2f;
-        _sprite.transform.position = centerPos;
-        Vector3 direction = _finalPosition - _initialPosition;
-        direction = Vector3.Normalize(direction);
-        _sprite.transform.right = direction;
-        if (_mirrorZ) _sprite.transform.right *= -1f;
-        Vector3 scale = new Vector3(1, 1, 1);
-        scale.x = Vector3.Distance(_initialPosition, _finalPosition);
-        _sprite.transform.localScale = scale;
-    }
-
 
     void Orbit()
     {
@@ -86,12 +74,15 @@ public class LightControl : MonoBehaviour
             float v = Input.GetAxis("Vertical");
             if (v != 0)
             {
-                float dist = spriteTransform.localPosition.y - (v * verticalSpeed * Time.deltaTime);
+                float dist = bodyTransform.localPosition.y - (v * verticalSpeed * Time.deltaTime);
                 float clampedDist = Mathf.Clamp(dist, zoomMin, zoomMax);
 
-                Vector3 tempVector = spriteTransform.localPosition;
+                Vector3 tempVector = bodyTransform.localPosition;
                 tempVector.y = clampedDist;
-                spriteTransform.localPosition = tempVector;
+                bodyTransform.localPosition = tempVector;
+
+                StrechCircleLine(bodyTransform.position, target.position);
+                Debug.Log($"circle {bodyTransform.position}, target {target.position}");
             }
 
             if (isReadyFX == true && (v != 0 || h != 0))
@@ -102,6 +93,18 @@ public class LightControl : MonoBehaviour
 
             isReadyFX = (v == 0 && h == 0);
         }
+    }
+
+    void StrechCircleLine(Vector2 point1, Vector2 point2)
+    {
+        SpriteRenderer render = circleLineTransform.GetComponent<SpriteRenderer>();
+        float spriteSize = render.sprite.rect.height / render.sprite.pixelsPerUnit;
+
+        Vector3 scale = circleLineTransform.localScale;
+        float radius = Vector3.Distance(point1, point2) / spriteSize * 2f; // 연산 값이 원하는 결과의 절반쯤이어서 2배
+        scale.y = radius;
+        scale.x = radius;
+        circleLineTransform.localScale = scale;
     }
 
     //void Move()
@@ -152,41 +155,6 @@ public class LightControl : MonoBehaviour
         else
         {
             result = WallSpawner.EWallDirection.None;
-        }
-
-        //Debug.Log($"angle: {angle}, dir: {result}");
-
-        return result;
-    }
-
-    public WallSpawner.EWallDirection GetEDirection2()
-    {
-        float angle = transform.rotation.eulerAngles.z;
-        WallSpawner.EWallDirection result = WallSpawner.EWallDirection.LeftTop;
-
-        if (30 < angle && angle < 90)
-        {
-            result = WallSpawner.EWallDirection.Right;
-        }
-        else if (90 < angle && angle < 150)
-        {
-            result = WallSpawner.EWallDirection.Left;
-        }
-        else if (150 < angle && angle < 210)
-        {
-            result = WallSpawner.EWallDirection.LeftTop;
-        }
-        else if (210 < angle && angle < 270)
-        {
-            result = WallSpawner.EWallDirection.LeftBottom;
-        }
-        else if (270 < angle && angle < 330)
-        {
-            result = WallSpawner.EWallDirection.RightBottom;
-        }
-        else // (0 < angle && angle < 30 || 330 < angle && angle < 360)
-        {
-            result = WallSpawner.EWallDirection.RightTop;
         }
 
         //Debug.Log($"angle: {angle}, dir: {result}");
