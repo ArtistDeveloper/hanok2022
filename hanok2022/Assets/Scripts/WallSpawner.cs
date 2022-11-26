@@ -13,6 +13,7 @@ public class WallSpawner : MonoBehaviour
     [SerializeField] List<GameObject> wallCreatedPositions = new List<GameObject>(6);
 
     static WallSpawner _instance = null;
+    float _coolTime = 0f;
 
     #endregion Filed
 
@@ -53,14 +54,28 @@ public class WallSpawner : MonoBehaviour
         }
     }
 
-    public void InstantiateWall()
+    void Start()
     {
-        // TODO: DecideWallRotation을 호출해서 벽의 각도를 결정한 뒤에, Instantiate를 할 때 벽의 각도를 정해준다.
-        EWallDirection eWallDirection = (EWallDirection)Random.Range(0, 6);
-        Vector3 wallPosition = DecideWallPosition(eWallDirection);
-        Vector3 wallRotation = DecideWallRotation(eWallDirection);
+        StartCoroutine(InstantiateWall());
+    }
 
-        Instantiate(_wallPrefab, wallPosition, Quaternion.Euler(wallRotation));
+    void Update()
+    {
+        
+    }
+
+    public IEnumerator InstantiateWall()
+    {
+        while (true)
+        {
+            EWallDirection eWallDirection = (EWallDirection)Random.Range(0, 6);
+            Vector3 wallPosition = DecideWallPosition(eWallDirection);
+            Vector3 wallRotation = DecideWallRotation(eWallDirection);
+
+            Instantiate(_wallPrefab, wallPosition, Quaternion.Euler(wallRotation));
+
+            yield return MyUtil.WaitForSeconds(2f);
+        }
     }
 
 
@@ -98,7 +113,6 @@ public class WallSpawner : MonoBehaviour
     }
 
 
-    // TODO: transform.eulerAngles을 사용하여 벽을 돌려서 생성할 예정.
     Vector3 DecideWallRotation(EWallDirection eWallDirection)
     {
         Vector3 wallEulerAngles;

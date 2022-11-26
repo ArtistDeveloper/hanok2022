@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     ShadowData shadowData;
 
+    float _playTime;
+    public float PlayTime { get => _playTime; }
+
     
     #region Records
     float startTime = 0f;
@@ -47,7 +50,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        string curTime = string.Format("{0:0.00}", Time.realtimeSinceStartup - startTime);
+        _playTime = Time.realtimeSinceStartup - startTime;
+        string curTime = string.Format("{0:0.00}", _playTime);
         //Debug.Log($"Time : {curTime}");
 
         if (Input.GetKeyDown(KeyCode.C))

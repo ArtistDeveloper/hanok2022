@@ -433,6 +433,10 @@ PrefabInstance:
       value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4516027510310651740, guid: e1d2fea612b912645adc446e557c306b, type: 3}
+      propertyPath: _wallSpped
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516027510310651740, guid: e1d2fea612b912645adc446e557c306b, type: 3}
       propertyPath: _wallPrefab
       value: 
       objectReference: {fileID: 4634744404267661180, guid: cd1ba5ba7e7a16947bbba0526b6e5cf7, type: 3}
