@@ -10,6 +10,11 @@ public class PlayScene : MonoBehaviour
 
     public void ChangeToScene()
     {
+        Invoke("WaitChangeToScene", 1f);
+    }
+
+    void WaitChangeToScene()
+    {
         SceneManager.LoadScene("Lobby");
     }
 }
