@@ -29,7 +29,7 @@ public class Wall : MonoBehaviour
 
     public void MoveCenter()
     {
-        transform.DOMove(_ceter, 2).OnComplete(() =>
+        transform.DOMove(_ceter, WallSpawner.Instance.WallSpped).OnComplete(() =>
         {
             Destroy(this.gameObject);
         });

@@ -9,7 +9,7 @@ public class WallSpawner : MonoBehaviour
 {
     #region Filed
 
-    [SerializeField] double _wallSpped = 0;
+    [SerializeField] float _wallSpped = 0;
     [SerializeField] GameObject _wallPrefab;
     [SerializeField] List<GameObject> wallCreatedPositions = new List<GameObject>(6);
 
@@ -80,6 +80,8 @@ public class WallSpawner : MonoBehaviour
             return _instance;
         }
     }
+
+    public float WallSpped { get => _wallSpped; }
 
     void Awake()
     {
