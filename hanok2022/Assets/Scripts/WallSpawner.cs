@@ -36,6 +36,8 @@ public class WallSpawner : MonoBehaviour
     const float MIN_SCALE = 0.5f;
     const float MAX_SCALE = 0.6f;
 
+    Coroutine spawnRoutine = null;
+
 #if UNITY_EDITOR
     int _wallIndex = 0;
     [SerializeField] Transform _wallCreationTarget;
@@ -63,17 +65,6 @@ public class WallSpawner : MonoBehaviour
         RightBottom,
         None
     }
-
-    //public enum EWallDirection
-    //{
-    //    LeftTop,
-    //    Left,
-    //    LeftBottom,
-    //    RightTop,
-    //    Right,
-    //    RightBottom
-    //}
-
 
     public static WallSpawner Instance
     {
@@ -103,11 +94,20 @@ public class WallSpawner : MonoBehaviour
         }
     }
 
-    void Start()
+    public void StartWallSpawner()
     {
-        //StartCoroutine(InstantiateWall()); // 원본 
-        StartCoroutine(IntantiateWallTest()); // 테스트 코드, 생성 위치 고정
+        spawnRoutine = StartCoroutine(InstantiateWall());
     }
+
+    public void FinishWallSpawner()
+    {
+        StopCoroutine(spawnRoutine);
+    }
+
+    //void Start()
+    //{
+    //    StartCoroutine(InstantiateWall()); // 원본 
+    //}
 
     void Update()
     {
@@ -282,6 +282,8 @@ public class WallSpawner : MonoBehaviour
         return wallEulerAngles;
     }
 
+
+    #region Test Set
 #if UNITY_EDITOR
     void TestPlay()
     {
@@ -317,4 +319,5 @@ public class WallSpawner : MonoBehaviour
         }
     }
 #endif
+    #endregion TestSet
 }

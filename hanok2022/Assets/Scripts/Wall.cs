@@ -76,4 +76,14 @@ public class Wall : MonoBehaviour
             Debug.Log("게임오버");
         }
     }
+
+    public void ActivateShadow()
+    {
+
+    }
+
+    public void DeactivateShadow()
+    {
+
+    }
 }
