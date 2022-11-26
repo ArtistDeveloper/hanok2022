@@ -47,3 +47,9 @@ MonoBehaviour:
   ConcordanceRate: 0.8
   target: {fileID: 0}
   flashLight: {fileID: 0}
+  lastTimeText: {fileID: 0}
+  bestTimeText: {fileID: 0}
+  newRecord: {fileID: 0}
+  GameOverText: {fileID: 0}
+  SLOW_TIME_SCALE: 0.2
+  SLOW_TIME: 0.15

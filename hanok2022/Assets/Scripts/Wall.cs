@@ -78,7 +78,8 @@ public class Wall : MonoBehaviour
             // ½ºÄÚ¾î »ó½Â?
             SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.WallBreak);
             Instantiate(particle, transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
+
+            GameManager.Instance.PlaySlowMotion(()=> Destroy(this.gameObject));
         }
         else
         {

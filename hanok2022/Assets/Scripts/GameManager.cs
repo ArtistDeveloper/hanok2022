@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,8 +42,10 @@ public class GameManager : MonoBehaviour
 
     bool isGameOver = false;
 
-    readonly float SLOW_TIME_SCALE = 0.2f;
-    readonly float SLOW_TIME = 1f;
+    [SerializeField] float SLOW_TIME_SCALE = 0.2f;
+    [SerializeField] float SLOW_TIME = 1f;
+    
+    Action slowFinishAction = null;
 
     Coroutine slowMotionRoutine = null;
 
@@ -130,12 +132,14 @@ public class GameManager : MonoBehaviour
         WallSpawner.Instance.FinishWallSpawner();
     }
 
-    public void PlaySlowMotion()
+    public void PlaySlowMotion(Action action)
     {
         if (slowMotionRoutine != null)
         {
             StopCoroutine(slowMotionRoutine);
         }
+
+        this.slowFinishAction = action;
 
         slowMotionRoutine = StartCoroutine(SlowMotionRoutine());
     }
@@ -147,6 +151,9 @@ public class GameManager : MonoBehaviour
         yield return MyUtil.WaitForSeconds(SLOW_TIME);
 
         Time.timeScale = 1f;
+
+        slowFinishAction();
+        slowFinishAction = null;
     }
 
     public void ChangeTarget()
