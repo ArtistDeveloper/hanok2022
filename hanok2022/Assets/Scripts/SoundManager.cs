@@ -115,6 +115,7 @@ public class SoundManager : MonoBehaviour
     #region Test Func
     void TestPlay()
     {
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ChangeBGM(ESoundBGM.Main);
@@ -139,7 +140,7 @@ public class SoundManager : MonoBehaviour
         {
             ChangeSFX(ESoundFX.DuneoFULLGadong);
         }
+#endif
     }
-
-    #endregion Test Func
+#endregion Test Func
 }
