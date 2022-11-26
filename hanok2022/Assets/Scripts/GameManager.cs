@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject target = null;
     [SerializeField] LightControl flashLight = null;
+
+    [Header("HUD")]
+    [SerializeField] Text lastTimeText = null;
+    [SerializeField] Text bestTimeText = null;
+    [SerializeField] GameObject newRecord = null;
+    [SerializeField] GameObject GameOverText = null;
 
     SpriteRenderer targetSprite = null; // wall에 표시될 sprite
 
@@ -32,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     float _playTime;
     public float PlayTime { get => _playTime; }
+
+    bool isGameOver = false;
 
     readonly float SLOW_TIME_SCALE = 0.2f;
     readonly float SLOW_TIME = 1f;
@@ -59,13 +68,31 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        _playTime = Time.realtimeSinceStartup - startTime;
-        string curTime = string.Format("{0:0.00}", _playTime);
+        if (isGameOver == false)
+        {
+            _playTime = Time.realtimeSinceStartup - startTime;
+            string curTime = string.Format("{0:0.00}", _playTime);
+        }
+
+        ShowTimeHUD();
+
         //Debug.Log($"Time : {curTime}");
 
         //if (Input.GetKeyDown(KeyCode.C))
         {
             SetShadowData();
+        }
+
+        if (isGameOver)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PlayScene.Instance.ChangeToLobbyScene();
+            }
+            else if (Input.GetKeyDown(KeyCode.Return))
+            {
+                PlayScene.Instance.ChangeToGameScene();
+            }
         }
     }
 
@@ -85,6 +112,9 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.ActiveLowPassFilter(false);
 
         startTime = Time.realtimeSinceStartup;
+        isGameOver = false;
+
+        InitHUD();
 
         // todo : wall 스폰 시작
         WallSpawner.Instance.StartWallSpawner();
@@ -93,6 +123,10 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SoundManager.Instance.ChangeBGM(SoundManager.ESoundBGM.None);
+
+        isGameOver = true;
+        GameOverUI();
+
         WallSpawner.Instance.FinishWallSpawner();
     }
 
@@ -133,18 +167,65 @@ public class GameManager : MonoBehaviour
 
         CurrentShadow.Scale = sqrDist; // x ~ 0.6097566
      
-        if (Input.GetKeyDown(KeyCode.C))
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    Debug.LogError("scale : " + val1);
+        //    Debug.Log("Capture distance^2 : " + sqrDist);
+        //}
+    }
+
+    #region HUD
+    readonly string BEST_TIME = "BestTimeKey";
+    bool isChallengeNewRecord = true; // false일 땐 최고 기록 갱신을 표시하지 않음
+    float savedBestTime = 0;
+
+    public void InitHUD()
+    {
+        isChallengeNewRecord = true;
+        savedBestTime = PlayerPrefs.GetFloat(BEST_TIME, 0);
+
+        GameOverText.SetActive(false);
+
+        lastTimeText.text = string.Format("{0:00.00}", 0);
+        bestTimeText.text = string.Format("{0:00.00}", savedBestTime);
+    }
+
+    public void GameOverUI()
+    {
+        GameOverText.SetActive(true);
+        RecordTime();
+    }
+
+    void RecordTime()
+    {
+        bool isNewRecord = _playTime > savedBestTime;
+        if (isNewRecord)
         {
-            Debug.LogError("scale : " + val1);
-            Debug.Log("Capture distance^2 : " + sqrDist);
+            PlayerPrefs.SetFloat(BEST_TIME, _playTime);
         }
     }
 
-    public ShadowData GetShadowData()
+    public void ShowTimeHUD()
     {
-        // todo : 벽에서 사용할 현재 라이트가 표현하는 그림자의 값
-        return null;
+        lastTimeText.text = string.Format("{0:00.00}", _playTime);
+        //bestTimeText.text = string.Format("{0:00.00}", savedBestTime);
+
+        bool isNewRecord = _playTime > savedBestTime;
+
+        if (isChallengeNewRecord && isNewRecord)
+        {
+            isChallengeNewRecord = false;
+            newRecord.SetActive(true);
+            Invoke("HideNewRecord", 1f);
+        }
     }
+
+    void HideNewRecord()
+    {
+        newRecord.SetActive(false);
+    }
+
+    #endregion HUD
 }
 
 public class ShadowData
@@ -167,5 +248,29 @@ public class ShadowData
     public override int GetHashCode()
     {
         return base.GetHashCode();
+    }
+}
+
+public class ResultPopup
+{
+    [SerializeField] Text newRecordText = null;
+    [SerializeField] Text playTime = null;
+    [SerializeField] Text bestTime = null;
+
+    readonly string BEST_TIME = "BestTimeKey";
+
+    public void SaveBestTime()
+    {
+        float savedBestTime = PlayerPrefs.GetFloat(BEST_TIME, 0);
+        float curTime = GameManager.Instance.PlayTime;
+
+        bool isNewRecord = curTime > savedBestTime;
+
+        if (isNewRecord)
+        {
+            PlayerPrefs.SetFloat(BEST_TIME, curTime);
+        }
+
+        newRecordText.gameObject.SetActive(isNewRecord);
     }
 }

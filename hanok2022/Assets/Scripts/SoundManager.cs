@@ -60,10 +60,10 @@ public class SoundManager : MonoBehaviour
         ActiveLowPassFilter(false);
     }
 
-    void Update()
-    {
-        TestPlay();
-    }
+    //void Update()
+    //{
+    //    TestPlay();
+    //}
 
     public void ActiveLowPassFilter(bool active)
     {
