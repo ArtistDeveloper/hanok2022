@@ -9,7 +9,6 @@ public class Wall : MonoBehaviour
 {
     [SerializeField] Transform _wallShadowTransform;
     [SerializeField] Transform _humanShadowArrivalTransform;
-    [SerializeField] 
 
     Vector3 _ceter = Vector3.zero;
     ShadowData _shadowData;
@@ -40,6 +39,15 @@ public class Wall : MonoBehaviour
     void FixedUpdate()
     {
         StretchShadowBetween(_humanShadowArrivalTransform.position, Target.position);
+
+        if (ShadowData.Direct == GameManager.Instance.CurrentShadow.Direct)
+        {
+            ActivateShadow();
+        }
+        else
+        {
+            DeactivateShadow();
+        }
     }
 
     public void StretchShadowBetween(Vector2 point1, Vector2 point2)
@@ -81,15 +89,11 @@ public class Wall : MonoBehaviour
 
     public void ActivateShadow()
     {
-        //GameManager.Instance.CurrentShadow
-        if (ShadowData.Direct == GameManager.Instance.CurrentShadow.Direct)
-        {
-
-        }
+        _humanShadowArrivalTransform.gameObject.SetActive(true);
     }
 
     public void DeactivateShadow()
     {
-
+        _humanShadowArrivalTransform.gameObject.SetActive(false);
     }
 }
