@@ -182,7 +182,7 @@ public class WallSpawner : MonoBehaviour
 
             ShadowData shadowData = new ShadowData();
             shadowData.Direct = eWallDirection;
-            shadowData.Scale = Random.Range(1.0f, 1.5f);
+            shadowData.Scale = Random.Range(0.4f, 0.7f);
 
             wallComponent.ShadowData = shadowData;
 
