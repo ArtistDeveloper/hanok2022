@@ -185,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wallShadowTransform: {fileID: 4634744403480642671}
   _humanShadowArrivalTransform: {fileID: 117625938978726811}
+  particle: {fileID: 157066, guid: 2a930ed66554a7e49a890ba946225375, type: 3}
 --- !u!61 &1898147385409499912
 BoxCollider2D:
   m_ObjectHideFlags: 0
