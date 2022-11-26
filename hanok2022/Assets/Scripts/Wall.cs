@@ -48,7 +48,7 @@ public class Wall : MonoBehaviour
         else
         {
             // 게임오버?
-            SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Demaged);
+            SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Damaged);
             Destroy(this.gameObject);
             Debug.Log("게임오버");
         }
