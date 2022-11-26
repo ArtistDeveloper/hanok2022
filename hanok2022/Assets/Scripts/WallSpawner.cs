@@ -9,7 +9,7 @@ public class WallSpawner : MonoBehaviour
 {
     #region Filed
 
-    [SerializeField] float _wallSpped = 0;
+    [SerializeField] float _wallArrivalSpeed = 0;
     [SerializeField] GameObject _wallPrefab;
     [SerializeField] List<GameObject> wallCreatedPositions = new List<GameObject>(6);
 
@@ -38,6 +38,7 @@ public class WallSpawner : MonoBehaviour
 
 #if UNITY_EDITOR
     int _wallIndex = 0;
+    [SerializeField] Transform _wallCreationTarget;
 #endif
 
     Dictionary<string, float> coolTimeTable = new Dictionary<string, float>()
@@ -86,7 +87,7 @@ public class WallSpawner : MonoBehaviour
         }
     }
 
-    public float WallSpped { get => _wallSpped; }
+    public float WallArrivalSpeed { get => _wallArrivalSpeed; }
 
     void Awake()
     {
@@ -104,13 +105,14 @@ public class WallSpawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(InstantiateWall());
+        //StartCoroutine(InstantiateWall()); // 원본 
+        StartCoroutine(IntantiateWallTest()); // 테스트 코드, 생성 위치 고정
     }
 
     void Update()
     {
         //string curTime = string.Format("{0:0.00}", GameManager.Instance.PlayTime);
-        //Debug.Log($"Time : {curTime}");
+        //Debug.Log($"Time : {curTime}"); 
 
         // Phase1 벽 생성 시간 조절
         if (
@@ -279,4 +281,40 @@ public class WallSpawner : MonoBehaviour
 
         return wallEulerAngles;
     }
+
+#if UNITY_EDITOR
+    void TestPlay()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            
+        }
+    }
+
+    public IEnumerator IntantiateWallTest()
+    {
+        while (true)
+        {
+            EWallDirection eWallDirection = (EWallDirection)Random.Range(CREATABLE_MIN_WALL, CREATABLE_MAX_WALL);
+
+            Vector3 wallPosition = _wallCreationTarget.position;
+
+            var wallObject = Instantiate(_wallPrefab, wallPosition, Quaternion.identity);
+            Wall wallComponent = wallObject.GetComponent<Wall>();
+
+            wallComponent.MoveCenter();
+
+            ShadowData shadowData = new ShadowData();
+            shadowData.Direct = eWallDirection;
+            shadowData.Scale = Random.Range(MIN_SCALE, MAX_SCALE);
+
+            wallComponent.ShadowData = shadowData;
+
+            wallObject.name = "Wall_" + _wallIndex;
+            _wallIndex += 1;
+
+            yield return MyUtil.WaitForSeconds(_coolTime);
+        }
+    }
+#endif
 }
