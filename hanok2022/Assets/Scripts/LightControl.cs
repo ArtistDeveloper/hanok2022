@@ -67,8 +67,7 @@ public class LightControl : MonoBehaviour
             float h = Input.GetAxis("Horizontal");
             if (h != 0)
             {
-                Vector3 axis = h < 0 ? Vector3.forward : Vector3.back;
-                transform.RotateAround(target.position, axis, horizontalSpeed * Time.deltaTime);
+                transform.RotateAround(target.position, Vector3.back, horizontalSpeed * Time.deltaTime * h);
             }
 
             float v = Input.GetAxis("Vertical");
