@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class LobbyScene : MonoBehaviour
 {
+    [SerializeField] float SceneChangeDelayTime = 1f;
+
     [Header("Credit")]
     [SerializeField] GameObject credit;
     [SerializeField] GameObject creditContents;
@@ -18,7 +20,7 @@ public class LobbyScene : MonoBehaviour
 
     public void ChangeToGameScene()
     {
-        Invoke("WaitChangeToGameScene", 1f);
+        Invoke("WaitChangeToGameScene", SceneChangeDelayTime);
     }
 
     void WaitChangeToGameScene()

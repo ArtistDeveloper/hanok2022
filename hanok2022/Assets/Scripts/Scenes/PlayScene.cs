@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayScene : MonoBehaviour
 {
+    [SerializeField] float SceneChangeDelayTime = 1f;
+
     void Start()
     {
         GameManager.Instance.GameStart();
@@ -10,7 +12,7 @@ public class PlayScene : MonoBehaviour
 
     public void ChangeToScene()
     {
-        Invoke("WaitChangeToScene", 1f);
+        Invoke("WaitChangeToScene", SceneChangeDelayTime);
     }
 
     void WaitChangeToScene()
