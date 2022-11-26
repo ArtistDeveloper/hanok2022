@@ -18,6 +18,7 @@ public class LobbyScene : MonoBehaviour
 
     public void ChangeToGameScene()
     {
+        SoundManager.Instance.ChangeBGM(SoundManager.ESoundBGM.None);
         SceneManager.LoadScene("Proto");
         //SceneManager.LoadScene("PlayScene");
     }

@@ -72,6 +72,14 @@ public class SoundManager : MonoBehaviour
 
     public void ChangeBGM(ESoundBGM type)
     {
+        if (type == ESoundBGM.None)
+        {
+            BGMSource.Stop();
+            currentBGM = ESoundBGM.None;
+            BGMSource.clip = null;
+            return;
+        }
+
         int index = (int)type - 1;
         var clip = BGMClips[index];
 
