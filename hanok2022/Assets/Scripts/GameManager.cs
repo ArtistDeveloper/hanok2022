@@ -77,9 +77,18 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
+        SoundManager.Instance.ChangeBGM(SoundManager.ESoundBGM.Main);
+        SoundManager.Instance.ActiveLowPassFilter(false);
+
         startTime = Time.realtimeSinceStartup;
 
         // todo : wall 스폰 시작
+        //WallSpawner.Instance.sta
+    }
+
+    public void GameOver()
+    {
+        SoundManager.Instance.ChangeBGM(SoundManager.ESoundBGM.None);
     }
 
     public void ChangeTarget()
