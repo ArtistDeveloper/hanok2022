@@ -60,10 +60,10 @@ public class SoundManager : MonoBehaviour
         ActiveLowPassFilter(false);
     }
 
-    //void Update()
-    //{
-    //    TestPlay();
-    //}
+    void Update()
+    {
+        TestPlay();
+    }
 
     public void ActiveLowPassFilter(bool active)
     {
@@ -126,6 +126,10 @@ public class SoundManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             ChangeSFX(ESoundFX.Damaged);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            ChangeSFX(ESoundFX.DuneoFULLGadong);
         }
     }
 
