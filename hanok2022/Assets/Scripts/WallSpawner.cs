@@ -176,12 +176,21 @@ public class WallSpawner : MonoBehaviour
             Vector3 wallRotation = DecideWallRotation(eWallDirection);
 
             var wallObject = Instantiate(_wallPrefab, wallPosition, Quaternion.Euler(wallRotation));
-            wallObject.GetComponent<Wall>().MoveCenter();
+            Wall wallComponent = wallObject.GetComponent<Wall>();
+            
+            wallComponent.MoveCenter();
+
+            ShadowData shadowData = new ShadowData();
+            shadowData.Direct = eWallDirection;
+            shadowData.Scale = Random.Range(1.0f, 1.5f);
+
+            wallComponent.ShadowData = shadowData;
 
 #if UNITY_EDITOR
             wallObject.name = "Wall_" + _wallIndex;
             _wallIndex += 1;
 #endif
+
             yield return MyUtil.WaitForSeconds(_coolTime);
         }
     }

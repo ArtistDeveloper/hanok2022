@@ -8,7 +8,21 @@ public class Wall : MonoBehaviour
 {
     //[SerializeField] Transform _shadowScale;
     Vector3 _ceter = Vector3.zero;
-    ShadowData shadowData;
+    ShadowData _shadowData;
+
+    public ShadowData ShadowData
+    {
+        set
+        {
+            _shadowData = value;
+        }
+    }
+
+    void Start()
+    {
+        Debug.Log("_shadowData.Direct" + _shadowData.Direct);
+        Debug.Log(string.Format("{0:0.00}", _shadowData.Scale));
+    }
 
     public void MoveCenter()
     {
