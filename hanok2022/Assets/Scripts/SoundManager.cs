@@ -55,12 +55,19 @@ public class SoundManager : MonoBehaviour
         {
             SFXSource.loop = false;
         }
+
+        ActiveLowPassFilter(false);
     }
 
     //void Update()
     //{
     //    TestPlay();
     //}
+
+    public void ActiveLowPassFilter(bool active)
+    {
+        lowPassFilter.enabled = active;
+    }
 
     public void ChangeBGM(ESoundBGM type)
     {

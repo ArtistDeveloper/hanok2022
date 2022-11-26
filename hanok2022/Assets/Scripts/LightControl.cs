@@ -19,6 +19,8 @@ public class LightControl : MonoBehaviour
 
     Transform target;
 
+    bool isReadyFX = true;
+
     void FixedUpdate()
     {
         //Move();
@@ -57,7 +59,6 @@ public class LightControl : MonoBehaviour
             float v = Input.GetAxis("Vertical");
             if (v != 0)
             {
-
                 float dist = spriteTransform.localPosition.y - (v * verticalSpeed * Time.deltaTime);
                 float clampedDist = Mathf.Clamp(dist, zoomMin, zoomMax);
 
@@ -65,6 +66,14 @@ public class LightControl : MonoBehaviour
                 tempVector.y = clampedDist;
                 spriteTransform.localPosition = tempVector;
             }
+
+            if (isReadyFX == true && (v != 0 || h != 0))
+            {
+                SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.LightMove);
+                isReadyFX = false;
+            }
+
+            isReadyFX = (v == 0 && h == 0);
         }
     }
 
