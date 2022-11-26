@@ -49,13 +49,24 @@ public class WallSpawner : MonoBehaviour
 
     public enum EWallDirection
     {
-        Top,
-        TopRight,
-        TopLeft,
-        Bottom,
-        BottomRight,
-        BottomLeft
+        LeftTop,
+        Left,
+        LeftBottom,
+        RightTop,
+        Right,
+        RightBottom,
+        None
     }
+
+    //public enum EWallDirection
+    //{
+    //    LeftTop,
+    //    Left,
+    //    LeftBottom,
+    //    RightTop,
+    //    Right,
+    //    RightBottom
+    //}
 
 
     public static WallSpawner Instance
@@ -202,23 +213,23 @@ public class WallSpawner : MonoBehaviour
 
         switch (eWallDirection)
         {
-            case EWallDirection.Top:
-                wallPosition = wallCreatedPositions[(int)EWallDirection.Top].transform.position;
+            case EWallDirection.LeftTop:
+                wallPosition = wallCreatedPositions[(int)EWallDirection.LeftTop].transform.position;
                 break;
-            case EWallDirection.TopRight:
-                wallPosition = wallCreatedPositions[(int)EWallDirection.TopRight].transform.position;
+            case EWallDirection.Left:
+                wallPosition = wallCreatedPositions[(int)EWallDirection.Left].transform.position;
                 break;
-            case EWallDirection.TopLeft:
-                wallPosition = wallCreatedPositions[(int)EWallDirection.TopLeft].transform.position;
+            case EWallDirection.LeftBottom:
+                wallPosition = wallCreatedPositions[(int)EWallDirection.LeftBottom].transform.position;
                 break;
-            case EWallDirection.Bottom:
-                wallPosition = wallCreatedPositions[(int)EWallDirection.Bottom].transform.position;
+            case EWallDirection.RightTop:
+                wallPosition = wallCreatedPositions[(int)EWallDirection.RightTop].transform.position;
                 break;
-            case EWallDirection.BottomRight:
-                wallPosition = wallCreatedPositions[(int)EWallDirection.BottomRight].transform.position;
+            case EWallDirection.Right:
+                wallPosition = wallCreatedPositions[(int)EWallDirection.Right].transform.position;
                 break;
-            case EWallDirection.BottomLeft:
-                wallPosition = wallCreatedPositions[(int)EWallDirection.BottomLeft].transform.position;
+            case EWallDirection.RightBottom:
+                wallPosition = wallCreatedPositions[(int)EWallDirection.RightBottom].transform.position;
                 break;
             default:
                 wallPosition = Vector3.zero;
@@ -236,23 +247,23 @@ public class WallSpawner : MonoBehaviour
 
         switch (eWallDirection)
         {
-            case EWallDirection.Top:
-                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.Top].transform.eulerAngles;
+            case EWallDirection.LeftTop:
+                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.LeftTop].transform.eulerAngles;
                 break;
-            case EWallDirection.TopRight:
-                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.TopRight].transform.eulerAngles;
+            case EWallDirection.Left:
+                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.Left].transform.eulerAngles;
                 break;
-            case EWallDirection.TopLeft:
-                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.TopLeft].transform.eulerAngles;
+            case EWallDirection.LeftBottom:
+                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.LeftBottom].transform.eulerAngles;
                 break;
-            case EWallDirection.Bottom:
-                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.Bottom].transform.eulerAngles;
+            case EWallDirection.RightTop:
+                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.RightTop].transform.eulerAngles;
                 break;
-            case EWallDirection.BottomRight:
-                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.BottomRight].transform.eulerAngles;
+            case EWallDirection.Right:
+                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.Right].transform.eulerAngles;
                 break;
-            case EWallDirection.BottomLeft:
-                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.BottomLeft].transform.eulerAngles;
+            case EWallDirection.RightBottom:
+                wallEulerAngles = wallCreatedPositions[(int)EWallDirection.RightBottom].transform.eulerAngles;
                 break;
             default:
                 wallEulerAngles = Vector3.zero;

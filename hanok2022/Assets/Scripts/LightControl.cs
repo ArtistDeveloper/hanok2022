@@ -96,31 +96,31 @@ public class LightControl : MonoBehaviour
     public WallSpawner.EWallDirection GetEDirection()
     {
         float angle = transform.rotation.eulerAngles.z;
-        WallSpawner.EWallDirection result = WallSpawner.EWallDirection.Top;
+        WallSpawner.EWallDirection result = WallSpawner.EWallDirection.LeftTop;
 
         if (30 < angle && angle < 90)
         {
-            result = WallSpawner.EWallDirection.BottomRight;
+            result = WallSpawner.EWallDirection.Right;
         }
         else if (90 < angle && angle < 150)
         {
-            result = WallSpawner.EWallDirection.TopRight;
+            result = WallSpawner.EWallDirection.Left;
         }
         else if (150 < angle && angle < 210)
         {
-            result = WallSpawner.EWallDirection.Top;
+            result = WallSpawner.EWallDirection.LeftTop;
         }
         else if (210 < angle && angle < 270)
         {
-            result = WallSpawner.EWallDirection.TopLeft;
+            result = WallSpawner.EWallDirection.LeftBottom;
         }
         else if (270 < angle && angle < 330)
         {
-            result = WallSpawner.EWallDirection.BottomLeft;
+            result = WallSpawner.EWallDirection.RightBottom;
         }
         else // (0 < angle && angle < 30 || 330 < angle && angle < 360)
         {
-            result = WallSpawner.EWallDirection.Bottom;
+            result = WallSpawner.EWallDirection.RightTop;
         }
 
         //Debug.Log($"angle: {angle}, dir: {result}");

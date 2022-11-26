@@ -29,11 +29,26 @@ public class Wall : MonoBehaviour
 
     public void MoveCenter()
     {
-        transform.DOMove(_ceter, 2).OnComplete(DestoryWall);
+        transform.DOMove(_ceter, 2).OnComplete(() =>
+        {
+            Destroy(this.gameObject);
+        });
     }
 
-    public void DestoryWall()
+    public void ValidateWallShadow()
     {
-        Destroy(this.gameObject);
+        bool isDirEqual = _shadowData.Equals(GameManager.Instance.CurrentShadow);
+        
+        if (isDirEqual)
+        {
+            // 스코어 상승?
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            // 게임오버?
+            Destroy(this.gameObject);
+            Debug.Log("게임오버");
+        }
     }
 }
