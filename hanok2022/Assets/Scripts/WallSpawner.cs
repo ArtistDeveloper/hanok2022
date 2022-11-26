@@ -11,9 +11,19 @@ public class WallSpawner : MonoBehaviour
     [SerializeField] double _wallSpped = 0;
     [SerializeField] GameObject _wallPrefab;
     [SerializeField] List<GameObject> wallCreatedPositions = new List<GameObject>(6);
+    
+    Dictionary<string, float> coolTimeTable = new Dictionary<string, float>()
+    {
+        { "Phase1", 5.0f },
+        { "Phase2", 4.0f },
+        { "Phase3", 3.0f },
+        { "Phase4", 2.5f },
+        { "Phase5", 2f },
+        { "Phase6", 1.5f },
+    };
 
     static WallSpawner _instance = null;
-    float _coolTime = 0f;
+    float _coolTime = 1f;
 
     #endregion Filed
 
@@ -61,7 +71,14 @@ public class WallSpawner : MonoBehaviour
 
     void Update()
     {
-        
+        if (GameManager.Instance.PlayTime >= 20f)
+        {
+            _coolTime = coolTimeTable["Phase1"];
+        }
+        else if (GameManager.Instance.PlayTime >= 40f)
+        {
+            _coolTime = coolTimeTable["Phase2"];
+        }
     }
 
     public IEnumerator InstantiateWall()
@@ -74,7 +91,7 @@ public class WallSpawner : MonoBehaviour
 
             Instantiate(_wallPrefab, wallPosition, Quaternion.Euler(wallRotation));
 
-            yield return MyUtil.WaitForSeconds(2f);
+            yield return MyUtil.WaitForSeconds(_coolTime);
         }
     }
 
