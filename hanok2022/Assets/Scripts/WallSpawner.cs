@@ -31,6 +31,9 @@ public class WallSpawner : MonoBehaviour
     const int CREATABLE_MIN_WALL = 0;
     const int CREATABLE_MAX_WALL = 6;
 
+#if UNITY_EDITOR
+    int _wallIndex = 0;
+#endif
 
     Dictionary<string, float> coolTimeTable = new Dictionary<string, float>()
     {
@@ -172,8 +175,13 @@ public class WallSpawner : MonoBehaviour
             Vector3 wallPosition = DecideWallPosition(eWallDirection);
             Vector3 wallRotation = DecideWallRotation(eWallDirection);
 
-            Instantiate(_wallPrefab, wallPosition, Quaternion.Euler(wallRotation));
+            var wallObject = Instantiate(_wallPrefab, wallPosition, Quaternion.Euler(wallRotation));
+            wallObject.GetComponent<Wall>().MoveCenter();
 
+#if UNITY_EDITOR
+            wallObject.name = "Wall_" + _wallIndex;
+            _wallIndex += 1;
+#endif
             yield return MyUtil.WaitForSeconds(_coolTime);
         }
     }

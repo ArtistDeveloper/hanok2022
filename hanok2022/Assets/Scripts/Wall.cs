@@ -8,20 +8,15 @@ public class Wall : MonoBehaviour
 {
     //[SerializeField] Transform _shadowScale;
     Vector3 _ceter = Vector3.zero;
+    ShadowData shadowData;
 
-    // TODO: 벽이 생성되면 플레이어 방향으로 이동하는 기능 구현 필요
-    void Start()
+    public void MoveCenter()
     {
-        MoveCenter();
+        transform.DOMove(_ceter, 2).OnComplete(DestoryWall);
     }
 
-    void Update()
+    public void DestoryWall()
     {
-        
-    }
-
-    void MoveCenter()
-    {
-        transform.DOMove(_ceter, 2);
+        Destroy(this.gameObject);
     }
 }
