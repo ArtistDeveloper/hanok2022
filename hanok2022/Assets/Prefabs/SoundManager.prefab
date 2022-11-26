@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36bfbe7112acfdb49a497446825404e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGMSource: {fileID: 0}
-  SFXSource: {fileID: 0}
+  BGMSource: {fileID: 768442870}
+  SFXSource: {fileID: 768442869}
   lowPassFilter: {fileID: 768442868}
   BGMClips:
   - {fileID: 8300000, guid: 9329c963ac402ae4483ad8dde6ac884b, type: 3}
