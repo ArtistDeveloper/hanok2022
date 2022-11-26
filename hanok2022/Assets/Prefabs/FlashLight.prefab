@@ -214,9 +214,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bc6854e11cbf409f0f0e4866bba1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 200
-  verticalSpeed: 5
-  zoomMin: 0.2
+  horizontalSpeed: 260
+  verticalSpeed: 7
+  zoomMin: 0.4
   zoomMax: 3
   lookSpeed: 10
   spriteTransform: {fileID: 1351713234417377541}
