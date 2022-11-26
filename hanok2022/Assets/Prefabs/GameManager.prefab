@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4267d7c35d368e94caf4a71ec1c9fac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConcordanceRate: 0.7
+  ConcordanceRate: 0.8
   target: {fileID: 0}
   flashLight: {fileID: 0}
