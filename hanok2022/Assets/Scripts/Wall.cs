@@ -42,11 +42,13 @@ public class Wall : MonoBehaviour
         if (isDirEqual)
         {
             // 스코어 상승?
+            SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.WallBreak);
             Destroy(this.gameObject);
         }
         else
         {
             // 게임오버?
+            SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Demaged);
             Destroy(this.gameObject);
             Debug.Log("게임오버");
         }

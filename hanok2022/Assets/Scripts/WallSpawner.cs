@@ -28,8 +28,13 @@ public class WallSpawner : MonoBehaviour
     static WallSpawner _instance = null;
     float _coolTime = 5f;
 
+    // 생성 가능한 벽의 개수
     const int CREATABLE_MIN_WALL = 0;
     const int CREATABLE_MAX_WALL = 6;
+
+    // 벽의 그림자 스케일
+    const float MIN_SCALE = 0.5f;
+    const float MAX_SCALE = 0.6f;
 
 #if UNITY_EDITOR
     int _wallIndex = 0;
@@ -195,7 +200,7 @@ public class WallSpawner : MonoBehaviour
 
             ShadowData shadowData = new ShadowData();
             shadowData.Direct = eWallDirection;
-            shadowData.Scale = Random.Range(0.4f, 0.7f);
+            shadowData.Scale = Random.Range(MIN_SCALE, MAX_SCALE);
 
             wallComponent.ShadowData = shadowData;
 
