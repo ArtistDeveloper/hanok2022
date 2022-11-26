@@ -82,7 +82,6 @@ public class LightControl : MonoBehaviour
                 bodyTransform.localPosition = tempVector;
 
                 StrechCircleLine(bodyTransform.position, target.position);
-                Debug.Log($"circle {bodyTransform.position}, target {target.position}");
             }
 
             if (isReadyFX == true && (v != 0 || h != 0))

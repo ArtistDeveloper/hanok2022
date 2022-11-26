@@ -43,7 +43,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Duplicate GameManager Exists");
+            Debug.LogError("Duplicate SoundManager Exists");
             Destroy(this.gameObject);
         }
 

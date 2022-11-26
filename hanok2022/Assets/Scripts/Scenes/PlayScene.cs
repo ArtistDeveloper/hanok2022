@@ -17,6 +17,17 @@ public class PlayScene : MonoBehaviour
 
     void WaitChangeToScene()
     {
+        FadeEffect.Instance.PlayFadeOut();
+
         SceneManager.LoadScene("Lobby");
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameManager.Instance.GameOver();
+            ChangeToScene();
+        }
     }
 }

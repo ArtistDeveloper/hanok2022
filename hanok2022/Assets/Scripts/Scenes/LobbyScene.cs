@@ -20,18 +20,25 @@ public class LobbyScene : MonoBehaviour
 
     public void ChangeToGameScene()
     {
+        SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Button);
+
         Invoke("WaitChangeToGameScene", SceneChangeDelayTime);
     }
 
     void WaitChangeToGameScene()
     {
+        FadeEffect.Instance.PlayFadeOut();
+
         SoundManager.Instance.ChangeBGM(SoundManager.ESoundBGM.None);
+
         SceneManager.LoadScene("Proto");
         //SceneManager.LoadScene("PlayScene");
     }
 
     public void PlayCredit()
     {
+        SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Button);
+
         credit.SetActive(true);
 
         var startPos = creditContents.transform.position;
@@ -46,5 +53,15 @@ public class LobbyScene : MonoBehaviour
     public void ReadTitle()
     {
         SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.DuneoFULLGadong);
+    }
+
+    public void ShowRanking()
+    {
+        SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Button);
+    }
+
+    public void Controls()
+    {
+        SoundManager.Instance.ChangeSFX(SoundManager.ESoundFX.Button);
     }
 }

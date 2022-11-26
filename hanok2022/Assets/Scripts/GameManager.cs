@@ -87,12 +87,13 @@ public class GameManager : MonoBehaviour
         startTime = Time.realtimeSinceStartup;
 
         // todo : wall 스폰 시작
-        //WallSpawner.Instance.sta
+        WallSpawner.Instance.StartWallSpawner();
     }
 
     public void GameOver()
     {
         SoundManager.Instance.ChangeBGM(SoundManager.ESoundBGM.None);
+        WallSpawner.Instance.FinishWallSpawner();
     }
 
     public void PlaySlowMotion()
